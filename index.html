@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Ohm-Vengers: La Resistencia del Conocimiento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --electric-blue: #00d4ff;
+            --lightning-yellow: #ffdd00;
+            --plasma-purple: #8b00ff;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 30, 0.9);
+            --text-light: #f0f0f0;
+            --correct-green: #00ff88;
+            --danger-red: #ff0044;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        #particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%);
+        }
+
+        .lightning {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--electric-blue), transparent);
+            animation: lightning 3s infinite;
+            opacity: 0;
+        }
+
+        @keyframes lightning {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--electric-blue), var(--lightning-yellow), var(--plasma-purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1) drop-shadow(0 0 20px var(--electric-blue)); }
+            to { filter: brightness(1.2) drop-shadow(0 0 40px var(--lightning-yellow)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: transform 0.3s ease;
+            border-bottom: 2px solid var(--electric-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--electric-blue);
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--electric-blue), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--electric-blue);
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        /* Content Sections */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .session {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .session.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .session-header {
+            background: linear-gradient(135deg, var(--card-bg), rgba(0, 212, 255, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--electric-blue);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .session-header::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--electric-blue), var(--plasma-purple), var(--lightning-yellow));
+            border-radius: 15px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .session-header:hover::before {
+            opacity: 1;
+            animation: borderRotate 3s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .session-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--electric-blue);
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        /* Quiz and Exercise Cards */
+        .quiz-container, .exercise-container {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+
+        .quiz-card, .exercise-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-card::after, .exercise-card::after {
+            content: attr(data-session);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(139, 0, 255, 0.2);
+            color: var(--plasma-purple);
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 1px solid var(--plasma-purple);
+            opacity: 0.7;
+        }
+
+        .quiz-card:hover, .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            border-color: var(--electric-blue);
+        }
+
+        .quiz-number, .exercise-number {
+            display: inline-block;
+            min-width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--electric-blue), var(--plasma-purple));
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 1rem;
+            box-shadow: 0 0 20px currentColor;
+            font-size: 14px;
+        }
+
+        .quiz-question, .exercise-problem {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--lightning-yellow);
+        }
+
+        .quiz-answer, .exercise-answer {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid var(--correct-green);
+            margin-top: 1rem;
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: rgba(139, 0, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0.5rem 0;
+            border: 1px solid var(--plasma-purple);
+            color: var(--lightning-yellow);
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(139, 0, 255, 0.3);
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--electric-blue), var(--plasma-purple));
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .data-table tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(139, 0, 255, 0.05));
+            padding: 3rem 2rem;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--electric-blue), var(--lightning-yellow));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .search-wrapper {
+            margin-bottom: 2rem;
+        }
+
+        .search-input-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.5rem 3.5rem 1.5rem 3.5rem;
+            font-size: 1.2rem;
+            background: var(--card-bg);
+            border: 2px solid var(--electric-blue);
+            border-radius: 50px;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--lightning-yellow);
+            box-shadow: 0 0 30px rgba(255, 221, 0, 0.4);
+            transform: scale(1.02);
+        }
+
+        .search-input::placeholder {
+            color: rgba(240, 240, 240, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            pointer-events: none;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--danger-red);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .clear-search:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 68, 0.5);
+        }
+
+        .search-stats {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: var(--lightning-yellow);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .search-indicator {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .search-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tag-label {
+            color: var(--electric-blue);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .search-tag {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--electric-blue);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .search-tag:hover {
+            background: var(--electric-blue);
+            color: var(--dark-bg);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Highlight for search results */
+        .highlight {
+            background: linear-gradient(90deg, var(--lightning-yellow), var(--electric-blue));
+            color: var(--dark-bg);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+            animation: highlightPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .search-active .quiz-card,
+        .search-active .exercise-card {
+            display: none;
+        }
+
+        .search-active .quiz-card.search-match,
+        .search-active .exercise-card.search-match {
+            display: block;
+            animation: fadeIn 0.3s ease;
+            border-color: var(--lightning-yellow);
+            box-shadow: 0 0 30px rgba(255, 221, 0, 0.3);
+        }
+
+        .search-active .data-table.search-match {
+            animation: fadeIn 0.3s ease;
+            box-shadow: 0 0 30px rgba(255, 221, 0, 0.3);
+        }
+
+        .search-active .session-header,
+        .search-active .category-title,
+        .search-active .challenge-section,
+        .search-active .safety-warning,
+        .search-active .stats-section {
+            display: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--danger-red);
+            display: none;
+        }
+
+        .search-active .no-results.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Section Categories */
+        .category-title {
+            font-size: 1.8rem;
+            color: var(--electric-blue);
+            margin: 3rem 0 2rem;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .category-title::before {
+            content: '⚡';
+            position: absolute;
+            left: -10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Safety Section */
+        .safety-warning {
+            background: linear-gradient(135deg, rgba(255, 0, 68, 0.1), rgba(255, 0, 68, 0.2));
+            border: 2px solid var(--danger-red);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .safety-warning::before {
+            content: '⚠️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Final Challenge */
+        .challenge-section {
+            background: linear-gradient(135deg, rgba(255, 221, 0, 0.1), rgba(139, 0, 255, 0.1));
+            border: 3px solid var(--lightning-yellow);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            position: relative;
+            box-shadow: 0 0 40px rgba(255, 221, 0, 0.3);
+        }
+
+        .challenge-title {
+            font-size: 2rem;
+            color: var(--lightning-yellow);
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        kbd {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--electric-blue);
+            border-radius: 4px;
+            padding: 0.2rem 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+            color: var(--lightning-yellow);
+        }
+
+        /* Stats Summary */
+        .stats-section {
+            background: linear-gradient(135deg, var(--card-bg), rgba(139, 0, 255, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 4rem;
+            border: 2px solid var(--plasma-purple);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--electric-blue);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--lightning-yellow);
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .session-title {
+                font-size: 1.8rem;
+            }
+
+            .quiz-container, .exercise-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--electric-blue), var(--plasma-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-lightning {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .loader-lightning::before,
+        .loader-lightning::after {
+            content: '⚡';
+            position: absolute;
+            font-size: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        .loader-lightning::before {
+            color: var(--electric-blue);
+            animation-delay: 0s;
+        }
+
+        .loader-lightning::after {
+            color: var(--lightning-yellow);
+            animation-delay: 0.5s;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-lightning"></div>
+            <h2 style="color: var(--electric-blue);">Cargando el Poder...</h2>
+        </div>
+    </div>
+
+    <!-- Animated Background -->
+    <div id="particles-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-content">
+            <div class="nav-title">⚡ Ohm-Vengers</div>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link" onclick="event.preventDefault(); document.getElementById('hero').scrollIntoView({behavior: 'smooth'}); return false;">Inicio</a></li>
+                <li><a href="#search-section" class="nav-link" onclick="event.preventDefault(); document.getElementById('search-section').scrollIntoView({behavior: 'smooth'}); document.getElementById('searchInput').focus(); return false;">🔍 Buscar</a></li>
+                <li><a href="#session1" class="nav-link" onclick="event.preventDefault(); document.getElementById('session1').scrollIntoView({behavior: 'smooth'}); return false;">Sesión 1</a></li>
+                <li><a href="#session2" class="nav-link" onclick="event.preventDefault(); document.getElementById('session2').scrollIntoView({behavior: 'smooth'}); return false;">Sesión 2</a></li>
+                <li><a href="#session3" class="nav-link" onclick="event.preventDefault(); document.getElementById('session3').scrollIntoView({behavior: 'smooth'}); return false;">Sesión 3</a></li>
+                <li><a href="#session4" class="nav-link" onclick="event.preventDefault(); document.getElementById('session4').scrollIntoView({behavior: 'smooth'}); return false;">Sesión 4</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h1 class="hero-title">⚡ Ohm-Vengers ⚡</h1>
+        <p class="hero-subtitle">La Resistencia del Conocimiento</p>
+        <div style="margin-top: 2rem;">
+            <p style="font-size: 1.2rem; opacity: 0.8;">📋 Lista Completa de Respuestas</p>
+            <p style="margin-top: 1rem;">👨‍🏫 Instructor: Carlos Mario Sanjuan Amador</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section" id="search-section">
+        <div class="search-container">
+            <h2 class="search-title">⚡ Buscador de Conocimiento Eléctrico ⚡</h2>
+            <p style="text-align: center; opacity: 0.8; margin-bottom: 2rem;">
+                Encuentra cualquier pregunta o concepto instantáneamente • Usa <kbd>Ctrl+F</kbd> para buscar rápido
+            </p>
+            <div class="search-wrapper">
+                <div class="search-input-container">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Busca preguntas, respuestas o conceptos..."
+                        autocomplete="off"
+                    >
+                    <span class="search-icon">🔍</span>
+                    <button id="clearSearch" class="clear-search" style="display: none;">✖</button>
+                </div>
+                <div class="search-stats" id="searchStats" style="display: none;">
+                    <span class="stats-text">Encontrados: <span id="resultCount">0</span> resultados</span>
+                    <span class="search-indicator" style="margin-left: 1rem;">⚡ Busca en todas las sesiones ⚡</span>
+                </div>
+            </div>
+            <div class="search-tags">
+                <span class="tag-label">Búsquedas rápidas:</span>
+                <button class="search-tag" data-search="voltaje">Voltaje</button>
+                <button class="search-tag" data-search="corriente">Corriente</button>
+                <button class="search-tag" data-search="resistencia">Resistencia</button>
+                <button class="search-tag" data-search="ley de ohm">Ley de Ohm</button>
+                <button class="search-tag" data-search="seguridad">Seguridad</button>
+                <button class="search-tag" data-search="LED">LED</button>
+                <button class="search-tag" data-search="multímetro">Multímetro</button>
+                <button class="search-tag" data-search="AWG">Calibres AWG</button>
+                <button class="search-tag" data-search="potencia">Potencia</button>
+                <button class="search-tag" data-search="conversión">Conversión</button>
+                <button class="search-tag" data-search="#15">#15</button>
+                <button class="search-tag" data-search="#30">#30</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Session 1 -->
+        <section class="session" id="session1">
+            <div class="session-header">
+                <h2 class="session-title">🟢 SESIÓN 1: Conceptos Básicos de Electricidad</h2>
+                <p>Quiz de Evaluación - 30 preguntas (5 aleatorias en evaluación)</p>
+            </div>
+
+            <h3 class="category-title">🧠 CONCEPTOS FUNDAMENTALES</h3>
+            <div class="quiz-container">
+                <div class="quiz-card">
+                    <span class="quiz-number">1</span>
+                    <div class="quiz-question">¿Qué mide la corriente eléctrica?</div>
+                    <div class="quiz-answer"><strong>✅ El flujo de electrones</strong></div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">2</span>
+                    <div class="quiz-question">¿En qué unidad se mide el voltaje?</div>
+                    <div class="quiz-answer"><strong>✅ Voltios (V)</strong></div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">3</span>
+                    <div class="quiz-question">La resistencia es...</div>
+                    <div class="quiz-answer"><strong>✅ La oposición al flujo de corriente</strong></div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">4</span>
+                    <div class="quiz-question">¿Cuál es la unidad de medida de la corriente eléctrica?</div>
+                    <div class="quiz-answer"><strong>✅ Amperios</strong></div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">5</span>
+                    <div class="quiz-question">¿Qué representa el símbolo 'I' en electricidad?</div>
+                    <div class="quiz-answer"><strong>✅ Intensidad (corriente)</strong></div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">6</span>
+                    <div class="quiz-question">¿Qué representa el símbolo 'V' en circuitos eléctricos?</div>
+                    <div class="quiz-answer"><strong>✅ Voltaje</strong></div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">7</span>
+                    <div class="quiz-question">¿Qué representa el símbolo 'R' en electricidad?</div>
+                    <div class="quiz-answer"><strong>✅ Resistencia</strong></div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">8</span>
+                    <div class="quiz-question">¿Cuál es una buena analogía para entender la corriente eléctrica?</div>
+                    <div class="quiz-answer"><strong>✅ El flujo de agua en una tubería</strong></div>
+                </div>
+            </div>
+
+            <h3 class="category-title">🔢 UNIDADES Y CONVERSIONES</h3>
+            <div class="quiz-container">
+                <div class="quiz-card">
+                    <span class="quiz-number">9</span>
+                    <div class="quiz-question">¿A cuántos Amperios equivalen 500 miliamperios?</div>
+                    <div class="quiz-answer"><strong>✅ 0.5 A</strong><br>Cálculo: 500 mA ÷ 1000 = 0.5 A</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">10</span>
+                    <div class="quiz-question">¿A cuántos voltios equivalen 2.5 kilovoltios?</div>
+                    <div class="quiz-answer"><strong>✅ 2500 V</strong><br>Cálculo: 2.5 kV × 1000 = 2500 V</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">11</span>
+                    <div class="quiz-question">¿Cuántos ohmios son 3.2 kiloohmios?</div>
+                    <div class="quiz-answer"><strong>✅ 3200 Ω</strong><br>Cálculo: 3.2 kΩ × 1000 = 3200 Ω</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">12</span>
+                    <div class="quiz-question">¿Qué prefijo representa 1/1000 de la unidad?</div>
+                    <div class="quiz-answer"><strong>✅ mili (m)</strong><br>m = 0.001 de la unidad</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">13</span>
+                    <div class="quiz-question">¿Qué prefijo representa 1000 veces la unidad?</div>
+                    <div class="quiz-answer"><strong>✅ kilo (k)</strong><br>k = 1000 × unidad</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">14</span>
+                    <div class="quiz-question">Un LED consume 20 mA. ¿Cuántos LEDs necesitas para consumir 1 A?</div>
+                    <div class="quiz-answer"><strong>✅ 50 LEDs</strong><br>Cálculo: 1000 mA ÷ 20 mA = 50 LEDs</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">15</span>
+                    <div class="quiz-question">¿Cuál es la conversión correcta de 0.025 A?</div>
+                    <div class="quiz-answer"><strong>✅ 25 mA</strong><br>Cálculo: 0.025 A × 1000 = 25 mA</div>
+                </div>
+            </div>
+
+            <h3 class="category-title">🔧 MEDICIÓN PRÁCTICA</h3>
+            <div class="quiz-container">
+                <div class="quiz-card">
+                    <span class="quiz-number">16</span>
+                    <div class="quiz-question">Para medir corriente con un multímetro, ¿cómo debes conectarlo?</div>
+                    <div class="quiz-answer"><strong>✅ En serie</strong><br>Interrumpe el circuito para medir el flujo</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">17</span>
+                    <div class="quiz-question">Para medir voltaje con un multímetro, ¿cómo debes conectarlo?</div>
+                    <div class="quiz-answer"><strong>✅ En paralelo</strong><br>Se conecta sin interrumpir el circuito</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">18</span>
+                    <div class="quiz-question">¿Cuándo es seguro medir resistencia con un multímetro?</div>
+                    <div class="quiz-answer"><strong>✅ Solo con circuito apagado</strong><br>Evita daños y lecturas incorrectas</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">19</span>
+                    <div class="quiz-question">¿Qué sucede si mides corriente en paralelo por error?</div>
+                    <div class="quiz-answer"><strong>✅ Se quema el fusible del multímetro</strong><br>Crea cortocircuito</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">20</span>
+                    <div class="quiz-question">¿Cuál es el símbolo eléctrico de una resistencia?</div>
+                    <div class="quiz-answer"><strong>✅ Un zigzag</strong><br>Símbolo estándar: 〰️</div>
+                </div>
+            </div>
+
+            <h3 class="category-title">🏠 APLICACIONES COTIDIANAS</h3>
+            <div class="quiz-container">
+                <div class="quiz-card">
+                    <span class="quiz-number">21</span>
+                    <div class="quiz-question">¿Cuál es el voltaje típico de las pilas AA?</div>
+                    <div class="quiz-answer"><strong>✅ 1.5 V</strong><br>Pilas alcalinas estándar</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">22</span>
+                    <div class="quiz-question">¿Qué voltaje encontramos en los tomacorrientes de casa?</div>
+                    <div class="quiz-answer"><strong>✅ 110-220 V</strong><br>Depende del país</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">23</span>
+                    <div class="quiz-question">¿Cuánta corriente consume típicamente un LED?</div>
+                    <div class="quiz-answer"><strong>✅ 20 mA</strong><br>LED estándar de 5mm</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">24</span>
+                    <div class="quiz-question">¿Qué voltaje usa el sistema eléctrico de un automóvil?</div>
+                    <div class="quiz-answer"><strong>✅ 12 V</strong><br>Sistema automotriz estándar</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">25</span>
+                    <div class="quiz-question">¿Cuál consume más corriente?</div>
+                    <div class="quiz-answer"><strong>✅ Una plancha eléctrica</strong><br>~10A vs otros dispositivos</div>
+                </div>
+            </div>
+
+            <h3 class="category-title">🛡️ SEGURIDAD ELÉCTRICA</h3>
+            <div class="quiz-container">
+                <div class="quiz-card">
+                    <span class="quiz-number">26</span>
+                    <div class="quiz-question">¿Cuál es la regla más importante en seguridad eléctrica?</div>
+                    <div class="quiz-answer"><strong>✅ Apagar la energía antes de trabajar</strong><br>Previene descargas fatales</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">27</span>
+                    <div class="quiz-question">¿Qué NO debes usar para apagar un fuego eléctrico?</div>
+                    <div class="quiz-answer"><strong>✅ Agua</strong><br>El agua conduce electricidad</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">28</span>
+                    <div class="quiz-question">¿Qué voltaje se considera generalmente seguro al tocar?</div>
+                    <div class="quiz-answer"><strong>✅ Menos de 12 V</strong><br>Voltaje de seguridad extra baja</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">29</span>
+                    <div class="quiz-question">Si alguien recibe una descarga eléctrica, ¿qué debes hacer PRIMERO?</div>
+                    <div class="quiz-answer"><strong>✅ Cortar la energía eléctrica</strong><br>Nunca tocar directamente</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">30</span>
+                    <div class="quiz-question">¿Por qué es peligroso trabajar con manos mojadas?</div>
+                    <div class="quiz-answer"><strong>✅ El agua reduce la resistencia del cuerpo</strong><br>Aumenta el riesgo de descarga</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Session 2 -->
+        <section class="session" id="session2">
+            <div class="session-header">
+                <h2 class="session-title">🔵 SESIÓN 2: Ley de Ohm (V = I × R)</h2>
+                <p>Domina el poder de las ecuaciones eléctricas</p>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+                <h3 style="color: var(--lightning-yellow); margin-bottom: 1rem;">📐 Fórmulas de la Ley de Ohm</h3>
+                <div class="formula">V = I × R (Voltaje = Corriente × Resistencia)</div>
+                <div class="formula">I = V ÷ R (Corriente = Voltaje ÷ Resistencia)</div>
+                <div class="formula">R = V ÷ I (Resistencia = Voltaje ÷ Corriente)</div>
+            </div>
+
+            <h3 class="category-title">🧮 Ejercicios Prácticos</h3>
+            <div class="exercise-container">
+                <div class="exercise-card">
+                    <span class="exercise-number">1</span>
+                    <div class="exercise-problem">Cálculo de Voltaje</div>
+                    <p><strong>Datos:</strong> R = 10Ω, I = 2A</p>
+                    <p><strong>Fórmula:</strong> V = I × R</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 20 V</strong><br>
+                        Cálculo: V = 2A × 10Ω = 20V
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <span class="exercise-number">2</span>
+                    <div class="exercise-problem">Cálculo de Corriente</div>
+                    <p><strong>Datos:</strong> V = 12V, R = 4Ω</p>
+                    <p><strong>Fórmula:</strong> I = V ÷ R</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 3 A</strong><br>
+                        Cálculo: I = 12V ÷ 4Ω = 3A
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <span class="exercise-number">3</span>
+                    <div class="exercise-problem">Cálculo de Resistencia</div>
+                    <p><strong>Datos:</strong> V = 110V, I = 0.5A</p>
+                    <p><strong>Fórmula:</strong> R = V ÷ I</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 220 Ω</strong><br>
+                        Cálculo: R = 110V ÷ 0.5A = 220Ω
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Session 3 -->
+        <section class="session" id="session3">
+            <div class="session-header">
+                <h2 class="session-title">🟡 SESIÓN 3: Conceptos Avanzados</h2>
+                <p>Domina el conocimiento superior</p>
+            </div>
+
+            <h3 class="category-title">📝 Evaluación de Conceptos Avanzados</h3>
+            <div class="quiz-container">
+                <div class="quiz-card">
+                    <span class="quiz-number">1</span>
+                    <div class="quiz-question">Para un circuito de 5A, ¿qué calibre de cable es más seguro para uso crítico?</div>
+                    <div class="quiz-answer"><strong>✅ AWG 14 (15A)</strong><br>Mayor margen de seguridad para aplicaciones críticas</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">2</span>
+                    <div class="quiz-question">Si un sistema necesita 400W útiles con 90% de eficiencia, ¿cuánta potencia debe generar la fuente?</div>
+                    <div class="quiz-answer"><strong>✅ 444W</strong><br>Potencia_fuente = 400W ÷ 0.90 = 444W</div>
+                </div>
+                <div class="quiz-card">
+                    <span class="quiz-number">3</span>
+                    <div class="quiz-question">¿Por qué usamos factor de seguridad 1.25 en fusibles?</div>
+                    <div class="quiz-answer"><strong>✅ Para proteger contra sobrecargas</strong><br>Protege contra picos de corriente imprevistas</div>
+                </div>
+            </div>
+
+            <h3 class="category-title">🔌 Tabla de Calibres AWG</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Calibre</th>
+                        <th>Capacidad</th>
+                        <th>Uso Típico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>AWG 18</strong></td>
+                        <td>~7A</td>
+                        <td>Electrónicos, luces LED</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AWG 16</strong></td>
+                        <td>~10A</td>
+                        <td>Electrodomésticos pequeños</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AWG 14</strong></td>
+                        <td>~15A</td>
+                        <td>Circuitos residenciales</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AWG 12</strong></td>
+                        <td>~20A</td>
+                        <td>Equipos de alta potencia</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin: 2rem 0; text-align: center;">
+                <h4 style="color: var(--lightning-yellow); margin-bottom: 1rem;">⚙️ Cálculos de Eficiencia</h4>
+                <div class="formula">Potencia_Real = Potencia_Útil ÷ Eficiencia</div>
+                <div class="formula">Factor_Seguridad = Corriente_Calculada × 1.25</div>
+            </div>
+        </section>
+
+        <!-- Session 4 -->
+        <section class="session" id="session4">
+            <div class="session-header">
+                <h2 class="session-title">🔴 SESIÓN 4: Aplicaciones Prácticas</h2>
+                <p>Usa tu poder en el mundo real</p>
+            </div>
+
+            <h3 class="category-title">🏠 Problemas del Mundo Real</h3>
+            <div class="exercise-container">
+                <div class="exercise-card">
+                    <span class="exercise-number">1</span>
+                    <div class="exercise-problem">🏠 Consumo Doméstico - Refrigerador</div>
+                    <p><strong>Datos:</strong> P = 150W, V = 120V</p>
+                    <p><strong>Fórmula:</strong> I = P ÷ V</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 1.25 A</strong><br>
+                        Cálculo: I = 150W ÷ 120V = 1.25A
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <span class="exercise-number">2</span>
+                    <div class="exercise-problem">🏭 Cable Industrial - Pérdida de voltaje</div>
+                    <p><strong>Datos:</strong> I = 25A, R = 2Ω</p>
+                    <p><strong>Fórmula:</strong> V = I × R</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 50 V</strong><br>
+                        Cálculo: V = 25A × 2Ω = 50V
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <span class="exercise-number">3</span>
+                    <div class="exercise-problem">💡 Sistema Iluminación - 20 LEDs</div>
+                    <p><strong>Datos:</strong> 20×10W, V = 220V</p>
+                    <p><strong>Fórmula:</strong> I = P_total ÷ V</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 0.91 A</strong><br>
+                        P_total = 200W, I = 200W ÷ 220V = 0.91A
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <span class="exercise-number">4</span>
+                    <div class="exercise-problem">🔥 Calentador Eléctrico - Resistencia</div>
+                    <p><strong>Datos:</strong> P = 1500W, V = 110V</p>
+                    <p><strong>Fórmula:</strong> R = V² ÷ P</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 8.07 Ω</strong><br>
+                        R = (110)² ÷ 1500 = 8.07Ω
+                    </div>
+                </div>
+                <div class="exercise-card">
+                    <span class="exercise-number">5</span>
+                    <div class="exercise-problem">🏥 Equipo Médico - Resistencia necesaria</div>
+                    <p><strong>Datos:</strong> I = 5A, V = 240V</p>
+                    <p><strong>Fórmula:</strong> R = V ÷ I</p>
+                    <div class="exercise-answer">
+                        <strong>✅ Respuesta: 48 Ω</strong><br>
+                        R = 240V ÷ 5A = 48Ω
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenge-section">
+                <h3 class="challenge-title">🏆 Desafío Final: Sistema Eléctrico Hospitalario</h3>
+                
+                <div style="background: rgba(0, 0, 0, 0.3); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+                    <h4 style="color: var(--lightning-yellow); margin-bottom: 1rem;">📋 Especificaciones del Sistema:</h4>
+                    <ul style="list-style: none; text-align: left;">
+                        <li>⚡ <strong>Respirador artificial:</strong> 150W, 120V</li>
+                        <li>❤️ <strong>Monitor cardíaco:</strong> 75W, 120V</li>
+                        <li>💉 <strong>Bomba de infusión:</strong> 25W, 120V</li>
+                        <li>💡 <strong>Iluminación emergencia:</strong> 10 focos LED × 12W c/u, 120V</li>
+                        <li>🔌 <strong>Voltaje del sistema:</strong> 120V DC</li>
+                    </ul>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Paso</th>
+                            <th>Cálculo</th>
+                            <th>Datos</th>
+                            <th>Respuesta</th>
+                            <th>Desarrollo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Potencia Total</td>
+                            <td>Todos los equipos</td>
+                            <td><strong>370 W</strong></td>
+                            <td>150+75+25+(10×12) = 370W</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Corriente Total</td>
+                            <td>P=370W, V=120V</td>
+                            <td><strong>3.08 A</strong></td>
+                            <td>I = 370W ÷ 120V = 3.08A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td>Fusible Protección</td>
+                            <td>I=3.08A, Factor=1.25</td>
+                            <td><strong>4A</strong></td>
+                            <td>3.08A × 1.25 = 3.85A → 4A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td>Calibre Cable</td>
+                            <td>I=4A, uso crítico</td>
+                            <td><strong>AWG 14</strong></td>
+                            <td>Uso crítico requiere margen extra</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5</strong></td>
+                            <td>Potencia Fuente</td>
+                            <td>P_útil=370W, η=92%</td>
+                            <td><strong>402.2 W</strong></td>
+                            <td>370W ÷ 0.92 = 402.2W</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin: 3rem 0; text-align: center;">
+                <h3 style="color: var(--lightning-yellow); margin-bottom: 1rem;">🔋 Fórmulas de Potencia</h3>
+                <div class="formula">P = V × I (Potencia = Voltaje × Corriente)</div>
+                <div class="formula">P = I² × R (Potencia = Corriente² × Resistencia)</div>
+                <div class="formula">P = V² ÷ R (Potencia = Voltaje² ÷ Resistencia)</div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <div class="stats-section">
+            <h2 style="color: var(--plasma-purple); font-size: 2.5rem; margin-bottom: 1rem;">📊 Resumen del Curso</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">46</div>
+                    <div class="stat-label">Respuestas Totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Sesiones Épicas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Preguntas Quiz</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Poder Desbloqueado</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <span style="font-size: 24px;">⚡</span>
+    </div>
+
+    <script>
+        // Navigation fix - Prevent external navigation
+        // All navigation links use internal anchors with smooth scrolling
+        
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        const searchStats = document.getElementById('searchStats');
+        const resultCount = document.getElementById('resultCount');
+        const searchTags = document.querySelectorAll('.search-tag');
+        
+        // Search function
+        function performSearch(query) {
+            const searchTerm = query.toLowerCase().trim();
+            const allCards = document.querySelectorAll('.quiz-card, .exercise-card');
+            const allTables = document.querySelectorAll('.data-table');
+            const contentDiv = document.querySelector('.content');
+            let matchCount = 0;
+            
+            // Remove previous highlights and no-results message
+            document.querySelectorAll('.highlight').forEach(el => {
+                el.outerHTML = el.textContent;
+            });
+            const existingMsg = document.querySelector('.no-results');
+            if (existingMsg) existingMsg.remove();
+            
+            if (searchTerm === '') {
+                // Reset search
+                contentDiv.classList.remove('search-active');
+                clearSearchBtn.style.display = 'none';
+                searchStats.style.display = 'none';
+                allCards.forEach(card => {
+                    card.classList.remove('search-match');
+                });
+                allTables.forEach(table => {
+                    table.style.display = '';
+                    table.classList.remove('search-match');
+                });
+                // Reset search indicator
+                const indicator = document.querySelector('.search-indicator');
+                if (indicator) {
+                    indicator.textContent = '⚡ Busca en todas las sesiones ⚡';
+                }
+                return;
+            }
+            
+            // Show search UI
+            contentDiv.classList.add('search-active');
+            clearSearchBtn.style.display = 'block';
+            searchStats.style.display = 'block';
+            
+            // Search through cards
+            allCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                const cardHTML = card.innerHTML;
+                
+                if (cardText.includes(searchTerm)) {
+                    card.classList.add('search-match');
+                    matchCount++;
+                    
+                    // Highlight search term
+                    highlightText(card, searchTerm);
+                } else {
+                    card.classList.remove('search-match');
+                }
+            });
+            
+            // Search through tables
+            allTables.forEach(table => {
+                const tableText = table.textContent.toLowerCase();
+                let tableHasMatch = false;
+                
+                if (tableText.includes(searchTerm)) {
+                    tableHasMatch = true;
+                    matchCount++;
+                    
+                    // Highlight in table cells
+                    table.querySelectorAll('td, th').forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                            highlightText(cell, searchTerm);
+                        }
+                    });
+                }
+                
+                // Show/hide tables based on search
+                if (contentDiv.classList.contains('search-active')) {
+                    table.style.display = tableHasMatch ? '' : 'none';
+                    if (tableHasMatch) {
+                        table.classList.add('search-match');
+                    }
+                }
+            });
+            
+            // Update result count
+            resultCount.textContent = matchCount;
+            
+            // Update search indicator with session breakdown
+            if (matchCount > 0) {
+                let s1Count = document.querySelectorAll('#session1 .search-match').length;
+                let s2Count = document.querySelectorAll('#session2 .search-match').length;
+                let s3Count = document.querySelectorAll('#session3 .search-match').length;
+                let s4Count = document.querySelectorAll('#session4 .search-match').length;
+                
+                let breakdown = [];
+                if (s1Count > 0) breakdown.push(`S1: ${s1Count}`);
+                if (s2Count > 0) breakdown.push(`S2: ${s2Count}`);
+                if (s3Count > 0) breakdown.push(`S3: ${s3Count}`);
+                if (s4Count > 0) breakdown.push(`S4: ${s4Count}`);
+                
+                const indicator = document.querySelector('.search-indicator');
+                if (indicator && breakdown.length > 0) {
+                    indicator.textContent = `⚡ Distribuidos en: ${breakdown.join(' | ')} ⚡`;
+                }
+            }
+            
+            // Show no results message if needed
+            if (matchCount === 0) {
+                const noResultsMsg = document.createElement('div');
+                noResultsMsg.className = 'no-results show';
+                noResultsMsg.innerHTML = `⚡ No se encontraron resultados para "<strong>${searchTerm}</strong>" ⚡<br>Intenta con otros términos`;
+                contentDiv.insertBefore(noResultsMsg, contentDiv.firstChild);
+            }
+            
+            // Scroll to first result
+            if (matchCount > 0) {
+                const firstMatch = document.querySelector('.search-match');
+                if (firstMatch) {
+                    setTimeout(() => {
+                        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            }
+        }
+        
+        // Highlight text function
+        function highlightText(element, searchTerm) {
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            element.childNodes.forEach(node => {
+                if (node.nodeType === 3) { // Text node
+                    const text = node.textContent;
+                    if (regex.test(text)) {
+                        const span = document.createElement('span');
+                        span.innerHTML = text.replace(regex, '<span class="highlight">$1</span>');
+                        node.parentNode.replaceChild(span, node);
+                    }
+                } else if (node.nodeType === 1 && !node.classList.contains('highlight')) {
+                    highlightText(node, searchTerm);
+                }
+            });
+        }
+        
+        // Search input event
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+        
+        // Clear search
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            performSearch('');
+            searchInput.focus();
+        });
+        
+        // Search tags
+        searchTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                searchInput.value = tag.dataset.search;
+                performSearch(tag.dataset.search);
+                searchInput.focus();
+                
+                // Add click effect with electric spark
+                tag.style.transform = 'scale(0.95)';
+                tag.style.background = 'var(--electric-blue)';
+                tag.style.color = 'var(--dark-bg)';
+                
+                // Create spark effect
+                const spark = document.createElement('span');
+                spark.textContent = '⚡';
+                spark.style.position = 'absolute';
+                spark.style.pointerEvents = 'none';
+                spark.style.fontSize = '2rem';
+                spark.style.color = 'var(--lightning-yellow)';
+                spark.style.animation = 'sparkFly 0.5s ease-out forwards';
+                spark.style.left = tag.offsetLeft + tag.offsetWidth/2 + 'px';
+                spark.style.top = tag.offsetTop + 'px';
+                tag.parentElement.appendChild(spark);
+                
+                setTimeout(() => {
+                    tag.style.transform = '';
+                    tag.style.background = '';
+                    tag.style.color = '';
+                    spark.remove();
+                }, 500);
+            });
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + F to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+            }
+            
+            // Escape to clear search
+            if (e.key === 'Escape' && document.activeElement === searchInput) {
+                searchInput.value = '';
+                performSearch('');
+            }
+        });
+        
+        // Create animated background particles
+        function createLightning() {
+            const particlesBg = document.getElementById('particles-bg');
+            for (let i = 0; i < 5; i++) {
+                const lightning = document.createElement('div');
+                lightning.className = 'lightning';
+                lightning.style.left = Math.random() * 100 + '%';
+                lightning.style.animationDelay = Math.random() * 3 + 's';
+                lightning.style.height = Math.random() * 200 + 100 + 'px';
+                particlesBg.appendChild(lightning);
+            }
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.session').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scrolling with better error handling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                
+                if (target) {
+                    const navHeight = document.getElementById('navbar').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+                return false;
+            });
+        });
+
+        // Scroll to top functionality
+        const scrollTop = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Hide loader after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                createLightning();
+                
+                // Add session indicators to cards
+                document.querySelectorAll('#session1 .quiz-card, #session1 .exercise-card').forEach(card => {
+                    card.setAttribute('data-session', 'S1');
+                });
+                document.querySelectorAll('#session2 .quiz-card, #session2 .exercise-card').forEach(card => {
+                    card.setAttribute('data-session', 'S2');
+                });
+                document.querySelectorAll('#session3 .quiz-card, #session3 .exercise-card').forEach(card => {
+                    card.setAttribute('data-session', 'S3');
+                });
+                document.querySelectorAll('#session4 .quiz-card, #session4 .exercise-card').forEach(card => {
+                    card.setAttribute('data-session', 'S4');
+                });
+            }, 1500);
+        });
+
+        // Add electric effect on hover to cards
+        document.querySelectorAll('.quiz-card, .exercise-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = `0 0 30px ${getComputedStyle(document.documentElement).getPropertyValue('--electric-blue')}`;
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+
+        // Dynamic navbar hide/show on scroll
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Add sparkle effect on formula hover
+        document.querySelectorAll('.formula').forEach(formula => {
+            formula.addEventListener('mouseenter', function() {
+                const sparkle = document.createElement('span');
+                sparkle.textContent = '✨';
+                sparkle.style.position = 'absolute';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.animation = 'sparkle 1s ease-out forwards';
+                sparkle.style.left = Math.random() * this.offsetWidth + 'px';
+                sparkle.style.top = Math.random() * this.offsetHeight + 'px';
+                this.style.position = 'relative';
+                this.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            });
+        });
+
+        // Add electric search effect
+        searchInput.addEventListener('focus', function() {
+            this.parentElement.style.boxShadow = '0 0 40px rgba(0, 212, 255, 0.6)';
+        });
+        
+        searchInput.addEventListener('blur', function() {
+            this.parentElement.style.boxShadow = '';
+        });
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% { 
+                    opacity: 1; 
+                    transform: translateY(0) scale(1);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translateY(-50px) scale(0);
+                }
+            }
+            @keyframes sparkFly {
+                0% { 
+                    opacity: 1; 
+                    transform: translateY(0) rotate(0deg);
+                }
+                100% { 
+                    opacity: 0; 
+                    transform: translateY(-100px) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
